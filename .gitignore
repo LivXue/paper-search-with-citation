@@ -1,0 +1,37 @@
+*.pyc
+__pycache__/
+*.swp
+*.swo
+*.log
+
+# Configuration files
+config/api_keys.txt
+config/proxies.txt
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+*.whl
+*.egg-info/
+build/
+dist/
+
+# Temporary files
+*.tmp
+*.temp
+
+.claude/
+docs/
+
+# Ignore all md files except README.md
+*.md
+!README.md
