@@ -7,6 +7,7 @@ __pycache__/
 # Configuration files
 config/api_keys.txt
 config/proxies.txt
+config/last_used.json
 
 # Virtual environment
 venv/
