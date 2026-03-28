@@ -101,27 +101,19 @@ For detailed configuration, please refer to [ADVANCED_CONFIG.md](ADVANCED_CONFIG
 
 ```
 scholar_engine/
-├── main.py                 # FastAPI main application
-├── search.py               # Semantic Scholar API implementation
-├── academic_keywords.json  # Academic keywords database
-├── config/                 # Configuration directory
-│   ├── api_keys.txt        # API key configuration
-│   ├── api_keys.txt.example# API key configuration example
-│   ├── proxies.txt         # Proxy configuration
-│   ├── proxies.txt.example # Proxy configuration example
-│   └── last_used.json      # API key usage records
-├── ADVANCED_CONFIG.md      # Advanced configuration guide
-├── CLAUDE.md               # Claude Code tool configuration
-├── SOLUTIONS.md            # Solution descriptions
+├── .gitignore              # Git ignore rules
 ├── README.md               # Project documentation (English)
 ├── README_zh.md            # Project documentation (Chinese)
-├── requirements.txt        # Dependencies list
-├── start.sh                # Quick startup script
+├── academic_keywords.json  # Academic keywords database
+├── config/                 # Configuration directory
+│   ├── api_keys.txt.example# API key configuration example
+│   └── proxies.txt.example # Proxy configuration example
+├── main.py                 # FastAPI main application
 ├── paper_search_with_citation/
 │   └── SKILL.md            # Paper search with citation agent skill
-├── .claude/                # Claude IDE integration config
-└── docs/                   # Documentation directory
-    └── superpowers/        # Technical documentation
+├── requirements.txt        # Dependencies list
+├── search.py               # Semantic Scholar API implementation
+└── start.sh                # Quick startup script
 ```
 
 ## 🎯 Core Features
@@ -163,79 +155,41 @@ This skill provides comprehensive guidance for AI agents and users:
 - **Statistics & Analytics**: View API manager performance metrics
 - **Formatted Output**: jq integration for clean, readable results
 
-### How to Use the Skill in Claude Code
+### How to Install the Skill in Claude Code
 
-#### Step 1: Activate the Skill (Claude Code)
+To use the Paper-Search-with-Citation skill in Claude Code, you need to install it first. The skill can be installed either for this specific project or globally for all projects.
 
-1. Open your project in VS Code or the Claude Code IDE
-2. Type `/skill` in the Claude Code input
-3. Select "Paper Search with Citation"
-4. The skill will load with all available commands and examples
+#### Option 1: Project-Level Installation (Recommended)
 
-#### Step 2: Quick Start with Skill Commands
-
+1. Create the skills directory in your project:
 ```bash
-# Health check (get API status)
-curl http://localhost:8111/health
-
-# Search for papers on "attention" with BibTeX (limit 3 results)
-curl -X POST "http://localhost:8111/search" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "attention",
-    "limit": 3,
-    "include_bibtex": true
-  }'
-
-# Get BibTeX for a specific paper by DOI
-curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
+mkdir -p .claude/skills/paper_search_with_citation
 ```
 
-### Skill Usage Scenarios
+2. Copy the skill file:
+```bash
+cp paper_search_with_citation/SKILL.md .claude/skills/paper_search_with_citation/
+```
 
-#### Scenario 1: Academic Writing (AI Agent)
+3. The skill is now available for this project only.
 
-> "I'm writing a paper on transformer architectures and need to find relevant citations."
+#### Option 2: Global Installation
 
-1. Activate the Paper Search with Citation skill
-2. Use the search endpoint with query "transformer architecture"
-3. Copy the BibTeX results directly into your LaTeX document
-4. Verify citations with DOI-based lookups
+1. Locate your Claude Code global configuration directory (usually in your home folder):
+   - On Linux/macOS: `~/.claude/skills/`
+   - On Windows: `%USERPROFILE%\.claude\skills\`
 
-#### Scenario 2: Research Exploration (AI Agent)
+2. Create the skill directory:
+```bash
+mkdir -p ~/.claude/skills/paper_search_with_citation
+```
 
-> "I want to explore recent papers on quantum machine learning."
+3. Copy the skill file:
+```bash
+cp paper_search_with_citation/SKILL.md ~/.claude/skills/paper_search_with_citation/
+```
 
-1. Activate the Paper Search with Citation skill
-2. Search with query "quantum machine learning" and limit=10
-3. Parse results with jq to extract paper titles and authors
-4. Analyze trends from the formatted output
-
-#### Scenario 3: API Monitoring
-
-> "I need to check if my local API server is running properly."
-
-1. Use the health check command from the skill
-2. Monitor API manager statistics to track performance
-3. Get real-time information about API key health and proxy status
-
-### Skill Configuration
-
-The skill is pre-configured for common use cases:
-
-- **Local Development**: Points to http://localhost:8111
-- **Remote Deployment**: Can be customized to your server address
-- **Documentation Links**: Direct access to Swagger UI and ReDoc
-
-### Why Use the Claude Skill?
-
-1. **Speed**: Instant access to all API commands without leaving your IDE
-2. **Accuracy**: Verified examples that work with your project
-3. **Consistency**: Standardized commands across all team members
-4. **Productivity**: Copy-paste commands for rapid prototyping
-5. **Learning**: Clear explanations for beginners and experts alike
-
-The Claude skill makes this academic search tool accessible to AI agents, researchers, students, and developers of all skill levels.
+4. The skill is now available for all your Claude Code projects.
 
 ## 💡 Common Questions
 
