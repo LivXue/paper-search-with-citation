@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from contextlib import asynccontextmanager
 
-from S2_search import AcademicCitationTool
+from search import AcademicCitationTool
 
 
 # Background task for keeping API keys alive
