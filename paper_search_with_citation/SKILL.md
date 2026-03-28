@@ -1,4 +1,21 @@
-bash# Academic Search API Usage Guide
+---
+name: paper-search-with-citation
+description: Use when working with the Academic Paper Search and BibTeX Generation API, including searching papers, retrieving BibTeX citations, and monitoring API manager statistics
+---
+
+# Academic Search API Usage Guide
+
+## Overview
+
+This skill provides comprehensive usage instructions for the Academic Paper Search and BibTeX Generation API, which supports Semantic Scholar API with advanced multi-API key and proxy management. The API offers endpoints for searching papers, retrieving BibTeX citations from DOIs, and monitoring API manager statistics.
+
+## When to Use
+
+- Searching academic papers using keywords
+- Retrieving BibTeX citations for papers using DOI
+- Checking API health and manager statistics
+- Monitoring API key and proxy configuration status
+- Formatting API responses using jq
 
 ## API Access Information
 
