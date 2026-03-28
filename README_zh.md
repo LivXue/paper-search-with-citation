@@ -29,7 +29,23 @@
 
 ## 🚀 快速开始
 
-### 1. 启动服务
+### 1. 配置 Semantic Scholar API Key
+
+在使用服务之前，您需要配置 Semantic Scholar API 密钥：
+
+1. 从 [Semantic Scholar Developer](https://www.semanticscholar.org/product/api#api-key-form) 申请免费的 API 密钥
+2. 创建或编辑 `config/api_keys.txt` 文件
+3. 将您的 API 密钥添加到该文件中（每行一个密钥）：
+
+```bash
+# 如果 config 目录不存在则创建
+mkdir -p config
+
+# 创建 api_keys.txt 文件并添加您的 API 密钥
+echo "your_semantic_scholar_api_key_here" > config/api_keys.txt
+```
+
+### 2. 启动服务
 
 ```bash
 # 方式 1: 直接运行
@@ -42,7 +58,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8111
 ./start.sh
 ```
 
-### 2. 安装 Claude Code Skill
+### 3. 安装 Claude Code Skill
 
 API 启动后，安装 Paper-Search-with-Citation skill 以在 Claude Code 中使用：
 
@@ -54,7 +70,7 @@ mkdir -p .claude/skills/paper_search_with_citation
 cp paper_search_with_citation/SKILL.md .claude/skills/paper_search_with_citation/
 ```
 
-### 3. 验证安装并访问 API 文档
+### 4. 验证安装并访问 API 文档
 
 ```bash
 # 健康检查

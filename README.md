@@ -27,7 +27,23 @@ Whether you're building an AI research assistant, writing a paper with AI help, 
 
 ## 🚀 Quick Start
 
-### 1. Start the Service
+### 1. Configure Semantic Scholar API Key
+
+Before using the service, you need to configure your Semantic Scholar API key:
+
+1. Get your free API key from [Semantic Scholar Developer](https://www.semanticscholar.org/product/api#api-key-form)
+2. Create or edit the `config/api_keys.txt` file
+3. Add your API key to this file (one key per line):
+
+```bash
+# Create config directory if it doesn't exist
+mkdir -p config
+
+# Create api_keys.txt file and add your API key
+echo "your_semantic_scholar_api_key_here" > config/api_keys.txt
+```
+
+### 2. Start the Service
 
 ```bash
 # Method 1: Direct run
@@ -40,7 +56,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8111
 ./start.sh
 ```
 
-### 2. Install the Claude Code Skill
+### 3. Install the Claude Code Skill
 
 Once the API is running, install the Paper-Search-with-Citation skill to use it in Claude Code:
 
@@ -52,7 +68,7 @@ mkdir -p .claude/skills/paper_search_with_citation
 cp paper_search_with_citation/SKILL.md .claude/skills/paper_search_with_citation/
 ```
 
-### 3. Verify Installation and Access Documentation
+### 4. Verify Installation and Access Documentation
 
 ```bash
 # Health check
