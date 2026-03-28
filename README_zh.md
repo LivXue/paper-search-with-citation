@@ -110,7 +110,6 @@ scholar_engine/
 │   ├── proxies.txt         # 代理配置
 │   ├── proxies.txt.example # 代理配置示例
 │   └── last_used.json      # API 密钥使用记录
-├── API_USAGE_GUIDE.md      # 详细 API 使用指南
 ├── ADVANCED_CONFIG.md      # 高级配置指南
 ├── CLAUDE.md               # Claude Code 工具配置
 ├── SOLUTIONS.md            # 解决方案说明
@@ -119,6 +118,11 @@ scholar_engine/
 ├── requirements.txt        # 依赖包列表
 ├── start.sh                # 快速启动脚本
 ├── .claude/                # Claude IDE 集成配置
+│   └── skills/
+│       └── paper_search/
+│           └── SKILL.md    # Claude IDE skill
+├── paper_search_with_citation/
+│   └── SKILL.md            # 论文搜索与引用 skill
 └── docs/                   # 文档目录
     └── superpowers/        # 技术文档
 ```

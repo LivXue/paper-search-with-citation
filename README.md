@@ -110,7 +110,6 @@ scholar_engine/
 │   ├── proxies.txt         # Proxy configuration
 │   ├── proxies.txt.example # Proxy configuration example
 │   └── last_used.json      # API key usage records
-├── API_USAGE_GUIDE.md      # Detailed API usage guide
 ├── ADVANCED_CONFIG.md      # Advanced configuration guide
 ├── CLAUDE.md               # Claude Code tool configuration
 ├── SOLUTIONS.md            # Solution descriptions
@@ -119,6 +118,11 @@ scholar_engine/
 ├── requirements.txt        # Dependencies list
 ├── start.sh                # Quick startup script
 ├── .claude/                # Claude IDE integration config
+│   └── skills/
+│       └── paper_search/
+│           └── SKILL.md    # Claude IDE skill
+├── paper_search_with_citation/
+│   └── SKILL.md            # Paper search with citation skill
 └── docs/                   # Documentation directory
     └── superpowers/        # Technical documentation
 ```
