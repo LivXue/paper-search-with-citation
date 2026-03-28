@@ -1,0 +1,14 @@
+# Proxy configuration example
+# Use 'null' or empty line for direct connection (no proxy)
+# Format options:
+#   - null
+#   - http://proxy.example.com:8080
+#   - http://username:password@proxy.example.com:8080
+#   - host:port
+#   - host:port:username:password
+
+null
+http://proxy1.example.com:8080
+http://user:pass@proxy2.example.com:8080
+127.0.0.1:8080
+127.0.0.1:8080:username:password
