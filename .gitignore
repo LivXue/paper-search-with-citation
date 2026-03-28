@@ -36,4 +36,5 @@ docs/
 # Ignore all md files except README.md
 *.md
 !README.md
+!README_zh.md
 !paper_search_with_citation/SKILL.md
