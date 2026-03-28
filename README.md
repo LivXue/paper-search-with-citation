@@ -12,7 +12,7 @@ This project fills that gap by providing a robust academic paper search tool tha
 - 🔍 Searches academic papers via Semantic Scholar API
 - 📋 Returns papers with **BibTeX format citations** ready to use
 - 🤖 Enables AI agents to autonomously search literature and write papers
-- ⚡ Features multi-API key and proxy management for reliability
+- ⚡ Features multi-API key and proxy management for higher rate limits
 
 Whether you're building an AI research assistant, writing a paper with AI help, or just need a reliable way to search academic literature, this tool provides the missing link between AI agents and scholarly knowledge.
 
