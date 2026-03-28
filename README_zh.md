@@ -117,12 +117,9 @@ scholar_engine/
 ├── README_zh.md            # 项目说明文档（中文）
 ├── requirements.txt        # 依赖包列表
 ├── start.sh                # 快速启动脚本
-├── .claude/                # Claude IDE 集成配置
-│   └── skills/
-│       └── paper_search/
-│           └── SKILL.md    # Claude IDE skill
 ├── paper_search_with_citation/
-│   └── SKILL.md            # 论文搜索与引用 skill
+│   └── SKILL.md            # 论文搜索与引用 agent skill
+├── .claude/                # Claude IDE 集成配置
 └── docs/                   # 文档目录
     └── superpowers/        # 技术文档
 ```
@@ -146,23 +143,18 @@ scholar_engine/
 
 ## 🤖 Claude Skill - 论文搜索与引用
 
-本项目包含两个自定义的 Claude Skill，帮助您更有效地使用 API：
+本项目包含一个自定义的 Claude agent Skill，帮助您更有效地使用 API：
 
-### 1. 论文搜索与引用 Skill
+### 论文搜索与引用 Skill
 
 - **位置**: `paper_search_with_citation/SKILL.md`
 - **用途**: 指导用户如何使用 bash 命令调用部署好的文献搜索 API
-- **适用场景**: 在本地或自有基础设施上运行 API 的用户
-
-### 2. 使用学术搜索 API Skill（IDE 集成）
-
-- **位置**: `.claude/skills/paper_search/SKILL.md`
-- **用途**: 为 Claude Code（claude.ai/code）提供专业的 IDE 集成支持
-- **适用场景**: 使用 Claude Code 进行研究和写作的开发者
+- **目标用户**: AI agent 和在本地或自有基础设施上运行 API 的用户
+- **设计目的**: Agent 自动化和集成到研究工作流中
 
 ### Skill 核心功能
 
-两个 Skill 都提供了全面的指导：
+本 Skill 为 AI agent 和用户提供了全面的指导：
 - **API 端点示例**: 所有可用端点的详细示例
 - **curl 命令模板**: 可直接复制使用的命令
 - **参数文档**: 清晰的搜索参数说明
@@ -177,7 +169,7 @@ scholar_engine/
 
 1. 在 VS Code 或 Claude Code IDE 中打开项目
 2. 在 Claude Code 输入框中输入 `/skill`
-3. 选择"Paper Search with Citation"或"Using Academic Search API"
+3. 选择"Paper Search with Citation"
 4. Skill 会加载所有可用的命令和示例
 
 #### 步骤 2：使用 Skill 命令快速开始
@@ -201,7 +193,7 @@ curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
 
 ### Skill 使用场景
 
-#### 场景 1：学术写作
+#### 场景 1：学术写作（AI Agent）
 
 > "我正在写一篇关于 transformer 架构的论文，需要找到相关的引用。"
 
@@ -210,11 +202,11 @@ curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
 3. 将 BibTeX 结果直接复制到 LaTeX 文档中
 4. 通过 DOI 验证引用
 
-#### 场景 2：研究探索
+#### 场景 2：研究探索（AI Agent）
 
 > "我想探索量子机器学习的最新论文。"
 
-1. 激活 Using Academic Search API Skill
+1. 激活 Paper Search with Citation Skill
 2. 使用查询 "quantum machine learning" 搜索，limit=10
 3. 使用 jq 解析结果，提取论文标题和作者
 4. 从格式化输出中分析趋势
@@ -229,11 +221,10 @@ curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
 
 ### Skill 配置
 
-两个 Skill 都已为常见使用场景预先配置：
+Skill 已为常见使用场景预先配置：
 
 - **本地开发**: 指向 http://localhost:8111
 - **远程部署**: 可自定义到您的服务器地址
-- **IDE 集成**: 自动检测项目上下文
 - **文档链接**: 直接访问 Swagger UI 和 ReDoc
 
 ### 为什么使用 Claude Skill？
@@ -244,7 +235,7 @@ curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
 4. **生产力**: 可复制粘贴的命令用于快速原型开发
 5. **学习性**: 为初学者和专家提供清晰的解释
 
-Claude Skill 使这个学术搜索工具对所有技能水平的研究人员、学生和开发者都可访问。
+Claude Skill 使这个学术搜索工具对 AI agent、研究人员、学生和所有技能水平的开发者都可访问。
 
 ## 💡 常见问题
 
