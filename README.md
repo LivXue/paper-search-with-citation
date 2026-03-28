@@ -1,6 +1,6 @@
-# Scholar Engine - Academic Paper Search and BibTeX Generator
+# Paper-Search-with-Citation Skill
 
-> Quickly and reliably search for academic papers and generate standard BibTeX citations
+> Quickly and reliably search for academic papers with bibtex citation formats
 
 [中文版本](README_zh.md) | Read this in Chinese
 
@@ -40,26 +40,92 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8111
 ./start.sh
 ```
 
-### 2. Access API Documentation
+### 2. Install the Claude Code Skill
 
-After starting, visit in your browser:
-- **Swagger UI**: http://localhost:8111/docs
-- **ReDoc**: http://localhost:8111/redoc
+Once the API is running, install the Paper-Search-with-Citation skill to use it in Claude Code:
 
-### 3. Quick Tests
+```bash
+# Create the skills directory
+mkdir -p .claude/skills/paper_search_with_citation
+
+# Copy the skill file
+cp paper_search_with_citation/SKILL.md .claude/skills/paper_search_with_citation/
+```
+
+### 3. Verify Installation and Access Documentation
 
 ```bash
 # Health check
 curl http://localhost:8111/health
 
-# Search papers
-curl "http://localhost:8111/search?query=attention&limit=3"
-
-# Get BibTeX
-curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
+# Access API documentation in your browser:
+# - Swagger UI: http://localhost:8111/docs
+# - ReDoc: http://localhost:8111/redoc
 ```
 
+For more information about API usage, check the documentation at:
+- API Documentation: http://localhost:8111/docs
+
 ## 📖 Detailed Usage Guide
+
+### Response Format
+
+The API returns standardized JSON responses for all endpoints. Below is the detailed format for search results:
+
+#### Search Response Format
+```json
+{
+  "success": true,
+  "query": "attention",
+  "total_results": 3,
+  "papers": [
+    {
+      "index": "10.48550/arXiv.1706.03762",
+      "title": "Attention Is All You Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin",
+      "year": 2017,
+      "venue": "Neural Information Processing Systems",
+      "doi": "10.48550/arXiv.1706.03762",
+      "citation_count": 12345,
+      "is_open_access": true,
+      "fields_of_study": ["Computer Science", "Artificial Intelligence"],
+      "abstract": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks...",
+      "url": "https://www.semanticscholar.org/paper/10.48550/arXiv.1706.03762",
+      "bibtex": "@article{Vaswani2017AttentionIA,\n  title={Attention Is All You Need},\n  author={Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},\n  journal={Neural Information Processing Systems},\n  year={2017}\n}"
+    }
+  ],
+  "message": "Success",
+  "api_key_used": 0
+}
+```
+
+#### Paper Object Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| `index` | string | Paper identifier (usually DOI or Semantic Scholar paper ID) |
+| `title` | string | Paper title |
+| `authors` | string | Authors list (formatted as "Author1, Author2, ...") |
+| `year` | integer | Publication year (null if unknown) |
+| `venue` | string | Publication venue (journal, conference, etc.) |
+| `doi` | string | DOI (Digital Object Identifier) |
+| `citation_count` | integer | Number of citations |
+| `is_open_access` | boolean | Whether the paper is open access |
+| `fields_of_study` | array | List of research fields |
+| `abstract` | string | Paper abstract (null if not available) |
+| `url` | string | Semantic Scholar URL for the paper |
+| `bibtex` | string | BibTeX citation (only included if `include_bibtex=true`) |
+
+#### Error Response Format
+```json
+{
+  "success": false,
+  "query": "invalid query",
+  "total_results": 0,
+  "papers": [],
+  "message": "Error message explaining the failure",
+  "api_key_used": null
+}
+```
 
 ### Python Example
 
@@ -133,11 +199,11 @@ scholar_engine/
 - [Advanced Configuration Guide](ADVANCED_CONFIG.md) - Multi-API key and proxy configuration
 - [Solutions Description](SOLUTIONS.md) - Technical implementation details
 
-## 🤖 Claude Skill - Paper Search with Citation
+## 🤖 Claude Skill - Paper-Search-with-Citation
 
 This project includes a custom Claude agent skill to help you use the API more effectively:
 
-### Paper Search with Citation Skill
+### Paper-Search-with-Citation Skill
 
 - **Location**: `paper_search_with_citation/SKILL.md`
 - **Purpose**: Guide users through calling the deployed academic search API using bash commands

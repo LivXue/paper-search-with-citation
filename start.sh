@@ -22,12 +22,12 @@ echo "   Academic Search API"
 echo "========================================"
 echo ""
 echo "API will be available at:"
-echo "  - Base URL: http://localhost:8000"
-echo "  - Docs:     http://localhost:8000/docs"
-echo "  - ReDoc:    http://localhost:8000/redoc"
+echo "  - Base URL: http://localhost:8111"
+echo "  - Docs:     http://localhost:8111/docs"
+echo "  - ReDoc:    http://localhost:8111/redoc"
 echo ""
 echo "Press Ctrl+C to stop the server"
 echo ""
 
 # Start the server
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8111

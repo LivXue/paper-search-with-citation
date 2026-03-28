@@ -1,6 +1,8 @@
-# Scholar Engine - 学术文献搜索与 BibTeX 生成工具
+# Paper-Search-with-Citation Skill
 
-> 快速、稳定地搜索学术论文并生成标准 BibTeX 引用格式
+> 快速、稳定地搜索学术论文并获取 BibTeX 引用格式
+
+[中文版本](README_zh.md) | Read this in Chinese
 
 [English Version](README.md) | 英文版本
 
@@ -40,26 +42,92 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8111
 ./start.sh
 ```
 
-### 2. 访问 API 文档
+### 2. 安装 Claude Code Skill
 
-启动后，在浏览器中访问：
-- **Swagger UI**: http://localhost:8111/docs
-- **ReDoc**: http://localhost:8111/redoc
+API 启动后，安装 Paper-Search-with-Citation skill 以在 Claude Code 中使用：
 
-### 3. 快速测试
+```bash
+# 创建技能目录
+mkdir -p .claude/skills/paper_search_with_citation
+
+# 复制技能文件
+cp paper_search_with_citation/SKILL.md .claude/skills/paper_search_with_citation/
+```
+
+### 3. 验证安装并访问 API 文档
 
 ```bash
 # 健康检查
 curl http://localhost:8111/health
 
-# 搜索论文
-curl "http://localhost:8111/search?query=attention&limit=3"
-
-# 获取 BibTeX
-curl "http://localhost:8111/bibtex/10.48550/arXiv.1706.03762"
+# 在浏览器中访问 API 文档：
+# - Swagger UI: http://localhost:8111/docs
+# - ReDoc: http://localhost:8111/redoc
 ```
 
+有关 API 使用的更多信息，请查看文档：
+- API 文档: http://localhost:8111/docs
+
 ## 📖 详细使用指南
+
+### 响应格式
+
+API 为所有端点返回标准化的 JSON 响应。以下是搜索结果的详细格式：
+
+#### 搜索响应格式
+```json
+{
+  "success": true,
+  "query": "attention",
+  "total_results": 3,
+  "papers": [
+    {
+      "index": "10.48550/arXiv.1706.03762",
+      "title": "Attention Is All You Need",
+      "authors": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin",
+      "year": 2017,
+      "venue": "Neural Information Processing Systems",
+      "doi": "10.48550/arXiv.1706.03762",
+      "citation_count": 12345,
+      "is_open_access": true,
+      "fields_of_study": ["Computer Science", "Artificial Intelligence"],
+      "abstract": "主流的序列转导模型基于复杂的循环或卷积神经网络...",
+      "url": "https://www.semanticscholar.org/paper/10.48550/arXiv.1706.03762",
+      "bibtex": "@article{Vaswani2017AttentionIA,\n  title={Attention Is All You Need},\n  author={Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},\n  journal={Neural Information Processing Systems},\n  year={2017}\n}"
+    }
+  ],
+  "message": "Success",
+  "api_key_used": 0
+}
+```
+
+#### 论文对象字段
+| 字段 | 类型 | 描述 |
+|------|------|------|
+| `index` | string | 论文标识符（通常是 DOI 或 Semantic Scholar 论文 ID） |
+| `title` | string | 论文标题 |
+| `authors` | string | 作者列表（格式："作者1, 作者2, ..."） |
+| `year` | integer | 发表年份（未知时为 null） |
+| `venue` | string | 发表 venue（期刊、会议等） |
+| `doi` | string | DOI（数字对象标识符） |
+| `citation_count` | integer | 引用次数 |
+| `is_open_access` | boolean | 是否开放获取 |
+| `fields_of_study` | array | 研究领域列表 |
+| `abstract` | string | 论文摘要（不可用时为 null） |
+| `url` | string | 论文在 Semantic Scholar 上的 URL |
+| `bibtex` | string | BibTeX 引用（仅当 `include_bibtex=true` 时包含） |
+
+#### 错误响应格式
+```json
+{
+  "success": false,
+  "query": "无效查询",
+  "total_results": 0,
+  "papers": [],
+  "message": "解释失败原因的错误信息",
+  "api_key_used": null
+}
+```
 
 ### Python 示例
 
@@ -133,11 +201,11 @@ scholar_engine/
 - [高级配置指南](ADVANCED_CONFIG.md) - 多 API Key 和代理配置
 - [解决方案说明](SOLUTIONS.md) - 技术实现细节
 
-## 🤖 Claude Skill - 论文搜索与引用
+## 🤖 Claude Skill - Paper-Search-with-Citation
 
 本项目包含一个自定义的 Claude agent Skill，帮助您更有效地使用 API：
 
-### 论文搜索与引用 Skill
+### Paper-Search-with-Citation Skill
 
 - **位置**: `paper_search_with_citation/SKILL.md`
 - **用途**: 指导用户如何使用 bash 命令调用部署好的文献搜索 API
