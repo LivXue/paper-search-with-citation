@@ -87,6 +87,7 @@ class PaperSearchRequest(BaseModel):
     query: str = Field(..., description="Search keywords", example="attention")
     limit: int = Field(default=3, ge=1, le=20, description="Number of results to return (1-20)")
     include_bibtex: bool = Field(default=True, description="Whether to include BibTeX citations")
+    year: Optional[str] = Field(default=None, description="Publication year filter. Examples: \"2020\", \"2016-2020\", \"2010-\", \"-2015\"", example="2020-2023")
 
 
 class Paper(BaseModel):
@@ -278,7 +279,7 @@ async def search_papers(request: PaperSearchRequest):
     Search for academic papers using Semantic Scholar API
 
     Args:
-        request: Search request containing query, limit, and include_bibtex flag
+        request: Search request containing query, limit, include_bibtex flag, and optional year filter
 
     Returns:
         Search results with paper information and optional BibTeX citations
@@ -287,7 +288,8 @@ async def search_papers(request: PaperSearchRequest):
     result = tool.search_and_get_citations(
         query=request.query,
         limit=request.limit,
-        include_bibtex=request.include_bibtex
+        include_bibtex=request.include_bibtex,
+        year=request.year
     )
 
     if not result["success"]:
@@ -301,7 +303,8 @@ async def search_papers(request: PaperSearchRequest):
 async def search_papers_get(
     query: str = Query(..., description="Search keywords", example="attention"),
     limit: int = Query(default=3, ge=1, le=20, description="Number of results to return (1-20)"),
-    include_bibtex: bool = Query(default=True, description="Whether to include BibTeX citations")
+    include_bibtex: bool = Query(default=True, description="Whether to include BibTeX citations"),
+    year: Optional[str] = Query(default=None, description="Publication year filter. Examples: \"2020\", \"2016-2020\", \"2010-\", \"-2015\"", example="2020-2023")
 ):
     """
     Search for academic papers (GET method)
@@ -310,6 +313,7 @@ async def search_papers_get(
         query: Search keywords
         limit: Number of results to return
         include_bibtex: Whether to include BibTeX citations
+        year: Publication year filter
 
     Returns:
         Search results with paper information and optional BibTeX citations
@@ -318,7 +322,8 @@ async def search_papers_get(
     result = tool.search_and_get_citations(
         query=query,
         limit=limit,
-        include_bibtex=include_bibtex
+        include_bibtex=include_bibtex,
+        year=year
     )
 
     if not result["success"]:

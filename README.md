@@ -19,8 +19,10 @@ Whether you're building an AI research assistant, writing a paper with AI help, 
 ## 🌟 Key Features
 
 - 🚀 **Quick Start** - One-click API service startup
-- 🔍 **Precision Search** - Search papers using Semantic Scholar API
+- 🔍 **Precision Search** - Search papers using Semantic Scholar API with year filtering support
 - 🔑 **Multi-API Key Management** - Automatic rotation with intelligent health monitoring
+- 🔄 **Automatic Keep-Alive** - Background task pings idle API keys to prevent revocation
+- 💾 **Persistent State** - API key usage times persisted across restarts
 - 🌐 **Proxy Support** - Flexible proxy configuration
 - 📋 **Standard BibTeX** - One-click access to professional citation formats
 - 🎯 **Simple API** - RESTful design for easy integration
@@ -115,6 +117,14 @@ The API returns standardized JSON responses for all endpoints. Below is the deta
 }
 ```
 
+#### Search Parameters
+| Parameter | Type | Description |
+|-------|------|-------------|
+| `query` | string | Search keywords (required) |
+| `limit` | integer | Number of results to return, range 1-20 (optional, default 3) |
+| `include_bibtex` | boolean | Whether to include BibTeX, true/false (optional, default true) |
+| `year` | string | Publication year filter (optional). Supported formats: <br>- Single year: `"2020"`<br>- Range: `"2016-2020"`<br>- From year: `"2010-"`<br>- To year: `"-2015"` |
+
 #### Paper Object Fields
 | Field | Type | Description |
 |-------|------|-------------|
@@ -202,12 +212,14 @@ scholar_engine/
 
 ### AcademicCitationTool (search.py)
 
-- **Search Functionality**: Search for academic papers by keywords
+- **Search Functionality**: Search for academic papers by keywords with optional year filtering
 - **BibTeX Generation**: Get standard BibTeX citation formats
 - **API Key Management**: Automatic rotation with health status tracking
 - **Proxy Support**: HTTP/HTTPS proxies with authentication support
 - **Rate Limiting**: Intelligent detection and recovery mechanisms
 - **Fallback Solution**: Alternative methods when official BibTeX is unavailable
+- **Automatic Keep-Alive**: Periodically pings idle API keys to prevent them from being revoked
+- **Persistent State**: API key usage times stored in `config/last_used.json` and restored on startup
 
 ## 📚 Additional Documentation
 

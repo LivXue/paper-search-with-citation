@@ -11,10 +11,12 @@ This skill provides comprehensive usage instructions for the Academic Paper Sear
 
 ## When to Use
 
-- Searching academic papers using keywords
+- Searching academic papers using keywords with optional year filtering
 - Retrieving BibTeX citations for papers using DOI
 - Checking API health and manager statistics
 - Monitoring API key and proxy configuration status
+- Checking API key keep-alive task status
+- Manually triggering keep-alive checks for idle API keys
 - Formatting API responses using jq
 
 ## API Access Information
@@ -45,13 +47,18 @@ curl -X POST "http://localhost:8111/search" \
 ### 3. Search Papers (GET Method)
 
 ```bash
-curl "http://localhost:8111/search?query=attention&limit=3&include_bibtex=true"
+curl "http://localhost:8111/search?query=attention&limit=3&include_bibtex=true&year=2020-2023"
 ```
 
 **Parameter Description:**
 - `query`: Search keywords (required)
 - `limit`: Number of results to return, range 1-20 (optional, default 3)
 - `include_bibtex`: Whether to include BibTeX, true/false (optional, default true)
+- `year`: Publication year filter (optional). Supported formats:
+  - Single year: `"2020"`
+  - Range: `"2016-2020"`
+  - From year: `"2010-"`
+  - To year: `"-2015"`
 
 ### 4. Get BibTeX Citation (POST Method)
 

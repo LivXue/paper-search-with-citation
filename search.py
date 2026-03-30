@@ -269,7 +269,8 @@ class AcademicCitationTool:
         print(f"✅ Loaded {len(api_keys)} API keys, {sum(1 for p in proxies if p)} proxied configurations")
 
     def search_and_get_citations(self, query: str, limit: int = 3,
-                                  include_bibtex: bool = True) -> Dict:
+                                  include_bibtex: bool = True,
+                                  year: Optional[str] = None) -> Dict:
         """
         Search papers and get citation information (main interface)
 
@@ -277,11 +278,14 @@ class AcademicCitationTool:
             query (str): Search keywords
             limit (int): Number of results to return, default: 3
             include_bibtex (bool): Whether to include BibTeX citations, default: True
+            year (str, optional): Publication year filter. Examples: "2020", "2016-2020", "2010-", "-2015"
 
         Returns:
             Dict: Search results in dictionary format
         """
         print(f"🔍 Searching: {query}...")
+        if year:
+            print(f"📅 Year filter: {year}")
 
         # 1. Search using Semantic Scholar (get complete information)
         params = {
@@ -290,6 +294,10 @@ class AcademicCitationTool:
             "fields": "title,authors,year,venue,url,externalIds,abstract,citationCount,"
                       "fieldsOfStudy,isOpenAccess,openAccessPdf,journal,publicationTypes"
         }
+
+        # Add year filter if provided
+        if year:
+            params["year"] = year
 
         # Try to get results with retries
         max_retries = len(self.manager.configs) * 2
