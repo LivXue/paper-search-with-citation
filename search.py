@@ -335,7 +335,12 @@ class AcademicCitationTool:
                     continue
 
                 sem_res.raise_for_status()
-                sem_data = sem_res.json().get("data", [])
+                json_data = sem_res.json()
+                if json_data is None:
+                    print(f"⚠️  API key {config.index}: Received null JSON response")
+                    self.manager.mark_unhealthy(config)
+                    continue
+                sem_data = json_data.get("data", [])
 
                 # Mark configuration as healthy
                 self.manager.mark_healthy(config)
